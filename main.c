@@ -1,6 +1,4 @@
 #include "push_swap.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 static int	ft_isspace(char c)
 {
@@ -72,6 +70,11 @@ int main(int argc, char **argv)
     t_list *a;
     t_list *previous_node;
     t_list *node;
+
+    if (argc < 2)
+    {
+        return (0);
+    }
 
     i = 1;
     a = create_node(argv[i]);
