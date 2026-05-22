@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 {
     int i;
     t_list *a;
+    t_list *b;
 
     if (argc < 2)
     {
@@ -43,5 +44,9 @@ int main(int argc, char **argv)
         ft_lstadd_back(&a, create_node(argv[i]));
         i++;
     }
-    print_stack(a);
+    b = NULL;
+    // print_stack(a);
+    radix(&a, &b);
+    // print_stack(a);
+    // print_stack(b);
 }
