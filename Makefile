@@ -1,21 +1,37 @@
-NAME =  push_swap.out
-SRC =  *.c
-OBJ = $(patsubst %c,%o,$(wildcard $(SRC)))
-RM = libft.a $(NAME)
-CFLAGS = -g -Wall -Werror -Wextra
+NAME     = push_swap
+CC       = cc
+CFLAGS   = -Wall -Wextra -Werror
+
+SRCS     = main.c \
+           operations.c \
+           push_swap_adaptive.c \
+           push_swap_algorithe1.c \
+           push_swap_algorithe2.c
+
+OBJS     = $(SRCS:.c=.o)
+
+LIBFT_DIR = libft
+LIBFT     = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
-$(NAME): $(OBJ) libft.a
-	cc $(CFLAGS) $^ libft.a
-libft.a:
-	(cd libft && make aclean && mv libft.a ..)
-# main: $(NAME) libft.h main.o
-# 	cc $(CFLAGS) -lbsd main.o -L . -l ft
-%.o: %.c libft.a
-	cc -c $(CFLAGS) $< -L . -l ft
+
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+%.o: %.c push_swap.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
+
 fclean: clean
-	rm -f $(wildcard $(RM))
+	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
+
 re: fclean all
-.PHONY: all clean fclean re main
+
+.PHONY: all clean fclean re

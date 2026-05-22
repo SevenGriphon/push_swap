@@ -2,7 +2,7 @@
 
 int	ft_len(t_list *pile)
 {
-	int		taille;
+	int	taille;
 
 	taille = 0;
 	while (pile)
@@ -13,20 +13,73 @@ int	ft_len(t_list *pile)
 	return (taille);
 }
 
-double	adaptive(t_list *pile)
+double	compute_disorder(t_list *pile)
 {
-	t_list	*courant;
-	double	erreurs;
+	t_list	*i;
+	t_list	*j;
+	double	mistakes;
+	double	total;
 
 	if (!pile || !pile->next)
 		return (0.0);
-	erreurs = 0;
-	courant = pile;
-	while (courant->next)
+	mistakes = 0;
+	total = 0;
+	i = pile;
+	while (i)
 	{
-		if ((int)(long)courant->content > (int)(long)courant->next->content)
-			erreurs++;
-		courant = courant->next;
+		j = i->next;
+		while (j)
+		{
+			total++;
+			if (*(int *)i->content > *(int *)j->content)
+				mistakes++;
+			j = j->next;
+		}
+		i = i->next;
 	}
-	return (erreurs / (ft_len(pile) - 1));
+	return (mistakes / total);
+}
+
+static void	sort_low_disorder(t_list **a)
+{
+	int	n;
+	int	i;
+	int	sorted;
+
+	n = ft_len(*a) - 1;
+	sorted = 0;
+	while (!sorted)
+	{
+		sorted = 1;
+		i = 0;
+		while (i < n)
+		{
+			if (*(int *)(*a)->content > *(int *)(*a)->next->content)
+			{
+				swap(a);
+				sorted = 0;
+			}
+			rotate(a);
+			i++;
+		}
+		i = 0;
+		while (i++ < n)
+			reverse_rotate(a);
+	}
+}
+
+void	sort_adaptive(t_list **a, t_list **b)
+{
+	double	disorder;
+
+	disorder = compute_disorder(*a);
+	if (disorder < 0.2)
+		sort_low_disorder(a);
+	else if (disorder < 0.5)
+	{
+		chunck(a, b);
+		sort_meduim(a, b);
+	}
+	else
+		sort_complex(a, b);
 }
