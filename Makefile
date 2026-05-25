@@ -8,6 +8,8 @@ SRCS     = main.c \
            push_swap_algorithe2.c \
            push_swap_adaptive.c \
 		   binary_radix.c \
+		   radix_utils.c \
+		   math.c \
 
 OBJS     = $(SRCS:.c=.o)
 

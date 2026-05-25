@@ -33,7 +33,15 @@ int		my_sqrt(int n);
 void	chunck(t_list **a, t_list **b);
 void	sort_meduim(t_list **a, t_list **b);
 
+int get_binary_digit(int n, int pos);
+int find_longest(t_list *stack);
+int needs_sorting(t_list *a, int pos);
+int needs_reverse_sort(t_list *a, int pos);
+void print_sorted_part(t_list *stack, int pos);
 void radix(t_list **a, t_list **b);
+
+int ft_log(unsigned int base, int n);
+int ft_pow(int base, int exponent);
 
 void	print_stack(t_list *stack);
 t_list	*create_node(char *arg);
