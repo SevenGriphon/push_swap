@@ -65,8 +65,33 @@ int needs_sorting(t_list *a, int pos)
         {
             return (1);
         }
-        
         a = a->next;
+    }
+    return (0);
+}
+
+int needs_reverse_sort(t_list *a, int pos)
+{
+    int ones;
+    int zeros;
+
+    ones = 0;
+    zeros = 0;
+    while (a)
+    {
+        if (get_binary_digit(*(int *)(a->content), pos) == 1)
+        {
+            ones++;
+        }
+        else
+        {
+            zeros++;
+        }
+        a = a->next;
+    }
+    if (ones * 2 < zeros)
+    {
+        return (1);
     }
     return (0);
 }
@@ -75,16 +100,20 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
 {
     int i;
     int size;
+    int digit;
+    int reverse;
 
     if (!needs_sorting(*a, pos))
     {
         return ;
     }
+    reverse = needs_reverse_sort(*a, pos);
     size = ft_lstsize(*a);
     i = 0;
     while (i != size)
     {
-        if (get_binary_digit(*(int *)((*a)->content), pos) == 0)
+        digit = get_binary_digit(*(int *)((*a)->content), pos);
+        if ((!reverse && digit == 0) || (reverse && digit == 1))
         {
             op_count++;
             push(a, b);
@@ -96,11 +125,20 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
         }
         i++;
     }
+    i = 0;
     while (*b != NULL)
     {
         op_count++;
         push(b, a);
         i++;
+    }
+    if (reverse)
+    {
+        while (i != 0)
+        {
+            rotate(a);
+            i--;
+        }
     }
 }
 
