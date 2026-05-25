@@ -57,15 +57,13 @@ void reverse_rotate(t_list **stack)
 
     first = *stack;
     last = *stack;
+    pre_last = first;
     while (last->next)
     {
         pre_last = last;
         last = last->next;
     }
-    if (pre_last)
-    {
-        pre_last->next = NULL;
-    }
     *stack = last;
     last->next = first;
+    pre_last->next = NULL;
 }

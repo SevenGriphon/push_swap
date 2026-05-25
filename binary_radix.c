@@ -77,7 +77,7 @@ void sort_by_sign(t_list **a, t_list **b)
     {
         op_count++;
         op_count++;
-        rotate(b);
+        reverse_rotate(b);
         push(b, a);
         i++;
     }
