@@ -1,5 +1,7 @@
 #include "push_swap.h"
 
+int op_count = 0;
+
 int ft_log(int base, int n)
 {
     int result;
@@ -48,38 +50,31 @@ int get_binary_digit(int n, int pos)
     return (n % 2);
 }
 
-void sort_by_digit(t_list **src, t_list **dest, int pos)
+void sort_by_digit(t_list **a, t_list **b, int pos)
 {
     int i;
     int size;
 
-    size = ft_lstsize(*src);
+    size = ft_lstsize(*a);
     i = 0;
-    // printf("before:\n");
-    // print_stack(*src);
-    // print_stack(*dest);
-    // printf("Should be in dist:\n");
     while (i != size)
     {
-        if (get_binary_digit(*(int *)((*src)->content), pos) == 0)
+        if (get_binary_digit(*(int *)((*a)->content), pos) == 0)
         {
-            push(src, dest);
-            rotate(dest);
+            op_count++;
+            push(a, b);
         }
         else
         {
-            // printf("%i\n", *(int *)((*src)->content));
-            rotate(src);
+            op_count++;
+            rotate(a);
         }
         i++;
     }
-    printf("source: ");
-    print_stack(*src);
-    printf("destination: ");
-    print_stack(*dest);
-    while (*src != NULL)
+    while (*b != NULL)
     {
-        push(src, dest);
+        op_count++;
+        push(b, a);
         i++;
     }
 }
@@ -107,17 +102,9 @@ void radix(t_list **a, t_list **b)
     i = 0;
     while (i != max_size)
     {
-        // printf("pass %i\n", i);
-        if (i % 2 == 0)
-        {
-            sort_by_digit(a, b, i);
-            print_sorted_part(*b, i);
-        }
-        else
-        {
-            sort_by_digit(b, a, i);
-            print_sorted_part(*a, i);
-        }
+        sort_by_digit(a, b, i);
+        print_sorted_part(*a, i);
         i++;
     }
+    printf("%i\n", op_count);
 }
