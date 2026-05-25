@@ -50,11 +50,36 @@ int get_binary_digit(int n, int pos)
     return (n % 2);
 }
 
+int needs_sorting(t_list *a, int pos)
+{
+    int digit;
+
+    digit = -1;
+    while (a)
+    {
+        if (digit == -1)
+        {
+            digit = get_binary_digit(*(int *)(a->content), pos);
+        }
+        else if (get_binary_digit(*(int *)(a->content), pos) != digit)
+        {
+            return (1);
+        }
+        
+        a = a->next;
+    }
+    return (0);
+}
+
 void sort_by_digit(t_list **a, t_list **b, int pos)
 {
     int i;
     int size;
 
+    if (!needs_sorting(*a, pos))
+    {
+        return ;
+    }
     size = ft_lstsize(*a);
     i = 0;
     while (i != size)
