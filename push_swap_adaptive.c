@@ -81,5 +81,6 @@ void	sort_adaptive(t_list **a, t_list **b)
 		sort_meduim(a, b);
 	}
 	else
-		sort_complex(a, b);
+		// sort_complex(a, b);
+		sort_meduim(a, b);
 }

@@ -4,9 +4,10 @@ CFLAGS   = -Wall -Wextra -Werror
 
 SRCS     = main.c \
            operations.c \
-           push_swap_adaptive.c \
            push_swap_algorithe1.c \
-           push_swap_algorithe2.c
+           push_swap_algorithe2.c \
+           push_swap_adaptive.c \
+		   binary_radix.c \
 
 OBJS     = $(SRCS:.c=.o)
 
