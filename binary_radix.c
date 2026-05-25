@@ -2,29 +2,40 @@
 
 int op_count = 0;
 
-int ft_log(int base, int n)
+int ft_log(unsigned int base, int n)
 {
     int result;
+    unsigned int nb;
 
-    result = 0;
-    while (n > base)
+    if (n < 0)
     {
-        n /= base;
+        nb = n * -1;
+    }
+    else
+    {
+        nb = n;
+    }
+    result = 0;
+    while (nb > base)
+    {
+        nb /= base;
         result++;
     }
     return(result + 1);
 }
 
-int find_max(t_list *stack)
+int find_longest(t_list *stack)
 {
     int max;
+    int size;
 
-    max = *(int *)(stack->content);
+    max = ft_log(2, *(int *)(stack->content));
     while (stack)
     {
-        if (*(int *)(stack->content) > max)
+        size = ft_log(2, *(int *)(stack->content));
+        if (size > max)
         {
-            max = *(int *)(stack->content);
+            max = size;
         }
         stack = stack->next;
     }
@@ -47,6 +58,10 @@ int ft_pow(int base, int exponent)
 int get_binary_digit(int n, int pos)
 {
     n = n/ft_pow(2, pos);
+    if (n < 0)
+    {
+        n *= -1;
+    }
     return (n % 2);
 }
 
@@ -136,9 +151,44 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
     {
         while (i != 0)
         {
+            op_count++;
             rotate(a);
             i--;
         }
+    }
+}
+
+void sort_by_sign(t_list **a, t_list **b)
+{
+    int i;
+    int size;
+    int number;
+
+    size = ft_lstsize(*a);
+    i = 0;
+    while (i != size)
+    {
+        number = *(int *)((*a)->content);
+        if (number < 0)
+        {
+            op_count++;
+            push(a, b);
+        }
+        else
+        {
+            op_count++;
+            rotate(a);
+        }
+        i++;
+    }
+    i = 0;
+    while (*b != NULL)
+    {
+        op_count++;
+        op_count++;
+        rotate(b);
+        push(b, a);
+        i++;
     }
 }
 
@@ -161,7 +211,7 @@ void radix(t_list **a, t_list **b)
     int max_size;
     int i;
 
-    max_size = ft_log(2, find_max(*a));
+    max_size = find_longest(*a);
     i = 0;
     while (i != max_size)
     {
@@ -169,5 +219,8 @@ void radix(t_list **a, t_list **b)
         print_sorted_part(*a, i);
         i++;
     }
+
+    sort_by_sign(a, b);
+    print_sorted_part(*a, i);
     printf("%i\n", op_count);
 }
