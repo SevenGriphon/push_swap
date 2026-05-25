@@ -32,23 +32,23 @@ void	bring_max_to_top(t_list **b)
 	if (max <= len / 2)
 	{
 		while (max-- > 0)
-			rotate(b);
+			do_rb(b, NULL);
 	}
 	else
 	{
 		len = len - max;
 		while (len-- > 0)
-			reverse_rotate(b);
+			do_rrb(b, NULL);
 	}
 }
 
 void	sort_simple(t_list **a, t_list **b)
 {
 	while (*a)
-		push(a, b);
+		do_pb(a, b, NULL);
 	while (*b)
 	{
 		bring_max_to_top(b);
-		push(b, a);
+		do_pa(a, b, NULL);
 	}
 }

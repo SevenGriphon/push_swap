@@ -16,14 +16,12 @@ void	print_stack(t_list *stack)
 {
 	while (stack)
 	{
-		printf("%i", *(int *)(stack->content));
+		ft_printf("%i", *(int *)(stack->content));
 		if (stack->next)
-		{
-			printf(" > ");
-		}
+			ft_printf(" > ");
 		stack = stack->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 t_list	*create_node(char *arg)
@@ -37,26 +35,46 @@ t_list	*create_node(char *arg)
 	return (node);
 }
 
+static int	parse_flags(int argc, char **argv, int *strategy)
+{
+	int	i;
+
+	i = 1;
+	*strategy = 0;
+	while (i < argc && argv[i][0] == '-' && argv[i][1] == '-')
+	{
+		if (ft_strncmp(argv[i], "--simple", 9) == 0)
+			*strategy = 1;
+		else if (ft_strncmp(argv[i], "--medium", 9) == 0)
+			*strategy = 2;
+		else if (ft_strncmp(argv[i], "--complex", 10) == 0)
+			*strategy = 3;
+		i++;
+	}
+	return (i);
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
+	int		strategy;
 	t_list	*a;
 	t_list	*b;
 
 	if (argc < 2)
-	{
 		return (0);
-	}
-	i = 1;
-	a = create_node(argv[i]);
-	i++;
-	while (i < argc)
-	{
-		ft_lstadd_back(&a, create_node(argv[i]));
-		i++;
-	}
+	i = parse_flags(argc, argv, &strategy);
+	a = NULL;
 	b = NULL;
-	print_stack(a);
-	radix(&a, &b);
-	print_stack(a);
+	while (i < argc)
+		ft_lstadd_back(&a, create_node(argv[i++]));
+	if (strategy == 1)
+		sort_simple(&a, &b);
+	else if (strategy == 2)
+		sort_meduim(&a, &b);
+	else if (strategy == 3)
+		radix(&a, &b);
+	else
+		sort_adaptive(&a, &b);
+	return (0);
 }

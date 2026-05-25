@@ -47,13 +47,13 @@ static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last)
 		val = *(int *)(*a)->content;
 		if (val >= cmin && (is_last || val < cmax))
 		{
-			push(a, b);
+			do_pb(a, b, NULL);
 			rotations = 0;
 			size_a--;
 		}
 		else
 		{
-			rotate(a);
+			do_ra(a, NULL);
 			rotations++;
 		}
 	}
@@ -91,9 +91,10 @@ void	chunck(t_list **a, t_list **b)
 
 void	sort_meduim(t_list **a, t_list **b)
 {
+	chunck(a, b);
 	while (*b)
 	{
 		bring_max_to_top(b);
-		push(b, a);
+		do_pa(a, b, NULL);
 	}
 }
