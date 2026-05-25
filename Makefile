@@ -16,13 +16,19 @@ OBJS     = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT     = $(LIBFT_DIR)/libft.a
 
+PRINTF_DIR = printf
+PRINTF     = $(PRINTF_DIR)/libftprintf.a
+
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+$(NAME): $(LIBFT) $(PRINTF) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+
+$(PRINTF):
+	$(MAKE) -C $(PRINTF_DIR)
 
 %.o: %.c push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -30,10 +36,12 @@ $(LIBFT):
 clean:
 	rm -f $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(PRINTF_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(PRINTF_DIR) fclean
 
 aclean: all clean
 

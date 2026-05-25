@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:55:25 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 17:55:26 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/25 19:52:53 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_list
 {
