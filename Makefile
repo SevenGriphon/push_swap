@@ -1,6 +1,6 @@
 NAME     = push_swap
 CC       = cc
-CFLAGS   = -Wall -Wextra -Werror
+CFLAGS   = -Wall -Wextra -Werror -g
 
 SRCS     = main.c \
            operations.c \
@@ -32,6 +32,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
+
+aclean: all clean
 
 re: fclean all
 
