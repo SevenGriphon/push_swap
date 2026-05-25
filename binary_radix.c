@@ -1,91 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   binary_radix.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/25 17:40:49 by alnoviko          #+#    #+#             */
+/*   Updated: 2026/05/25 17:50:10 by alnoviko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-
-void sort_by_digit(t_list **a, t_list **b, int pos)
+void	push_back(t_list **a, t_list **b, int reverse)
 {
-    int i;
-    int size;
-    int digit;
-    int reverse;
+	int	i;
 
-    if (!needs_sorting(*a, pos))
-    {
-        return ;
-    }
-    reverse = needs_reverse_sort(*a, pos);
-    size = ft_lstsize(*a);
-    i = 0;
-    while (i != size)
-    {
-        digit = get_binary_digit(*(int *)((*a)->content), pos);
-        if ((!reverse && digit == 0) || (reverse && digit == 1))
-        {
-            push(a, b);
-        }
-        else
-        {
-            rotate(a);
-        }
-        i++;
-    }
-    i = 0;
-    while (*b != NULL)
-    {
-        push(b, a);
-        i++;
-    }
-    if (reverse)
-    {
-        while (i != 0)
-        {
-            rotate(a);
-            i--;
-        }
-    }
+	i = 0;
+	while (*b != NULL)
+	{
+		push(b, a);
+		i++;
+	}
+	if (reverse)
+	{
+		while (i-- != 0)
+			rotate(a);
+	}
 }
 
-void sort_by_sign(t_list **a, t_list **b)
+void	sort_by_digit(t_list **a, t_list **b, int pos)
 {
-    int i;
-    int size;
-    int number;
+	int	i;
+	int	size;
+	int	digit;
+	int	reverse;
 
-    size = ft_lstsize(*a);
-    i = 0;
-    while (i != size)
-    {
-        number = *(int *)((*a)->content);
-        if (number < 0)
-        {
-            push(a, b);
-        }
-        else
-        {
-            rotate(a);
-        }
-        i++;
-    }
-    i = 0;
-    while (*b != NULL)
-    {
-        reverse_rotate(b);
-        push(b, a);
-        i++;
-    }
+	if (!needs_sorting(*a, pos))
+		return ;
+	reverse = needs_reverse_sort(*a, pos);
+	size = ft_lstsize(*a);
+	i = 0;
+	while (i++ != size)
+	{
+		digit = get_binary_digit(*(int *)((*a)->content), pos);
+		if ((!reverse && digit == 0) || (reverse && digit == 1))
+			push(a, b);
+		else
+			rotate(a);
+	}
+	push_back(a, b, reverse);
 }
 
-void radix(t_list **a, t_list **b)
+void	sort_by_sign(t_list **a, t_list **b)
 {
-    int max_size;
-    int i;
+	int	i;
+	int	size;
+	int	number;
 
-    max_size = find_longest(*a);
-    i = 0;
-    while (i != max_size)
-    {
-        sort_by_digit(a, b, i);
-        i++;
-    }
+	size = ft_lstsize(*a);
+	i = 0;
+	while (i != size)
+	{
+		number = *(int *)((*a)->content);
+		if (number < 0)
+			push(a, b);
+		else
+			rotate(a);
+		i++;
+	}
+	i = 0;
+	push_back(a, b, 0);
+}
 
-    sort_by_sign(a, b);
+void	radix(t_list **a, t_list **b)
+{
+	int	max_size;
+	int	i;
+
+	max_size = find_longest(*a);
+	i = 0;
+	while (i != max_size)
+	{
+		sort_by_digit(a, b, i);
+		i++;
+	}
+	sort_by_sign(a, b);
 }
