@@ -45,5 +45,7 @@ int main(int argc, char **argv)
         i++;
     }
     b = NULL;
+    print_stack(a);
     radix(&a, &b);
+    print_stack(a);
 }

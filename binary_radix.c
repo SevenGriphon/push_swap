@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-int op_count = 0;
 
 void sort_by_digit(t_list **a, t_list **b, int pos)
 {
@@ -21,12 +20,10 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
         digit = get_binary_digit(*(int *)((*a)->content), pos);
         if ((!reverse && digit == 0) || (reverse && digit == 1))
         {
-            op_count++;
             push(a, b);
         }
         else
         {
-            op_count++;
             rotate(a);
         }
         i++;
@@ -34,7 +31,6 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
     i = 0;
     while (*b != NULL)
     {
-        op_count++;
         push(b, a);
         i++;
     }
@@ -42,7 +38,6 @@ void sort_by_digit(t_list **a, t_list **b, int pos)
     {
         while (i != 0)
         {
-            op_count++;
             rotate(a);
             i--;
         }
@@ -62,12 +57,10 @@ void sort_by_sign(t_list **a, t_list **b)
         number = *(int *)((*a)->content);
         if (number < 0)
         {
-            op_count++;
             push(a, b);
         }
         else
         {
-            op_count++;
             rotate(a);
         }
         i++;
@@ -75,8 +68,6 @@ void sort_by_sign(t_list **a, t_list **b)
     i = 0;
     while (*b != NULL)
     {
-        op_count++;
-        op_count++;
         reverse_rotate(b);
         push(b, a);
         i++;
@@ -93,11 +84,8 @@ void radix(t_list **a, t_list **b)
     while (i != max_size)
     {
         sort_by_digit(a, b, i);
-        print_sorted_part(*a, i);
         i++;
     }
 
     sort_by_sign(a, b);
-    print_sorted_part(*a, i);
-    printf("%i\n", op_count);
 }
