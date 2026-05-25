@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 17:56:40 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/25 18:49:20 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	print_stack(t_list *stack)
 {
 	while (stack)
 	{
-		printf("%i", *(int *)(stack->content));
+		ft_printf("%i", *(int *)(stack->content));
 		if (stack->next)
 		{
-			printf(" > ");
+			ft_printf(" > ");
 		}
 		stack = stack->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 t_list	*create_node(char *arg)
