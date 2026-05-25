@@ -7,14 +7,13 @@ void swap(t_list **stack)
 
     if (!*stack || !(*stack)->next)
     {
-        return ;
+        return;
     }
     first = *stack;
     second = (*stack)->next;
     first->next = second->next;
     second->next = first;
     *stack = second;
-    printf("hjeifoa-afhiowef-awfiohwfoahiofh-awfoipj");
 }
 
 void push(t_list **src, t_list **dest)
@@ -23,13 +22,12 @@ void push(t_list **src, t_list **dest)
 
     if (!*src)
     {
-        return ;
+        return;
     }
     element = *src;
     *src = (*src)->next;
     element->next = *dest;
     *dest = element;
-    printf("hjeifoa-afhiowef-awfiohwfoahiofh-awfoipj");
 }
 
 void rotate(t_list **stack)
@@ -49,7 +47,6 @@ void rotate(t_list **stack)
     }
     last->next = first;
     first->next = NULL;
-    printf("hjeifoa-afhiowef-awfiohwfoahiofh-awfoipj");
 }
 
 void reverse_rotate(t_list **stack)
@@ -71,5 +68,4 @@ void reverse_rotate(t_list **stack)
     }
     *stack = last;
     last->next = first;
-    printf("hjeifoa-afhiowef-awfiohwfoahiofh-awfoipj");
 }
