@@ -62,6 +62,11 @@ void	new_stats(t_stats *stats);
 int		ft_len(t_list *pile);
 double	compute_disorder(t_list *pile);
 void	sort_adaptive(t_list **a, t_list **b, t_stats *stats);
+void	print_bench(t_stats *s, double disorder, int strategy);
+
+int		validate_args(int argc, char **argv, int start);
+int		has_duplicates(t_list *a);
+int		ft_error(t_list **a);
 
 int		find_max_pos(t_list *b);
 void	bring_max_to_top(t_list **b, t_stats *stats);

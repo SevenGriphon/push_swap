@@ -3,6 +3,8 @@ CC       = cc
 CFLAGS   = -Wall -Wextra -Werror -g
 
 SRCS     = main.c \
+           bench.c \
+           error.c \
            operations.c \
            push_swap_algorithe1.c \
            push_swap_algorithe2.c \
