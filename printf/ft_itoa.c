@@ -6,11 +6,24 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 19:51:47 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/05 19:51:48 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:09:53 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	int	len;
+
+	len = 0;
+	while (*s != 0)
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}
 
 static int	bget_size(unsigned long n, int bsize)
 {

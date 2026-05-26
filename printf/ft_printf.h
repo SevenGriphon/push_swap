@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 16:49:56 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/05 19:50:15 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:09:43 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int		funsigned(unsigned int n);
 int		fpointer(void *arg);
 char	*ft_bitoa(unsigned long n, char *base);
 char	*ft_itoa(int n);
-size_t	ft_strlen(const char *s);
-size_t	ft_strlen(const char *s);
+int	ft_printf_fd(int fd, const char *format, ...);
 #endif

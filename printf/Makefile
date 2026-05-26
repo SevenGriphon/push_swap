@@ -1,5 +1,5 @@
 NAME =  libftprintf.a
-SRC =  utils.c formating.c ft_printf.c ft_itoa.c
+SRC =  utils.c formating.c ft_printf.c ft_itoa.c ft_printf_fd.c
 OBJ = $(patsubst %c,%o,$(SRC))
 RM = libft.a $(NAME) a.out
 CFLAGS = -g -Wall -Werror -Wextra
