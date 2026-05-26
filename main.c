@@ -6,34 +6,11 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:30:07 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:36:18 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_list *stack)
-{
-	while (stack)
-	{
-		ft_printf("%i", *(int *)(stack->content));
-		if (stack->next)
-			ft_printf(" > ");
-		stack = stack->next;
-	}
-	ft_printf("\n");
-}
-
-t_list	*create_node(char *arg)
-{
-	int		*value;
-	t_list	*node;
-
-	value = malloc(sizeof(int));
-	*value = ft_atoi(arg);
-	node = ft_lstnew(value);
-	return (node);
-}
 
 static int	parse_flags(int argc, char **argv, int *strategy)
 {
@@ -52,21 +29,6 @@ static int	parse_flags(int argc, char **argv, int *strategy)
 		i++;
 	}
 	return (i);
-}
-
-void	new_stats(t_stats *stats)
-{
-	stats->sa = 0;
-	stats->sb = 0;
-	stats->ss = 0;
-	stats->pa = 0;
-	stats->pb = 0;
-	stats->ra = 0;
-	stats->rb = 0;
-	stats->rr = 0;
-	stats->rra = 0;
-	stats->rrb = 0;
-	stats->rrr = 0;
 }
 
 int	main(int argc, char **argv)
@@ -93,5 +55,7 @@ int	main(int argc, char **argv)
 		radix(&a, &b, &stats);
 	else
 		sort_adaptive(&a, &b, &stats);
+	ft_lstclear(&a, free);
+	ft_lstclear(&b, free);
 	return (0);
 }

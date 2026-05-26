@@ -10,6 +10,7 @@ SRCS     = main.c \
 		   binary_radix.c \
 		   radix_utils.c \
 		   math.c \
+		   push_swap_utils.c \
 
 OBJS     = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:55:25 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:30:53 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:33:57 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	do_rra(t_list **a, t_stats *s);
 void	do_rrb(t_list **b, t_stats *s);
 void	do_rrr(t_list **a, t_list **b, t_stats *s);
 
-
+void	print_stack(t_list *stack);
+t_list	*create_node(char *arg);
+void	new_stats(t_stats *stats);
 
 int		ft_len(t_list *pile);
 double	compute_disorder(t_list *pile);
