@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:52:39 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 17:52:49 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:32:41 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,21 @@ int	ft_pow(int base, int exponent)
 		exponent--;
 	}
 	return (result);
+}
+
+int	my_sqrt(int n)
+{
+	int	x;
+	int	y;
+
+	if (n < 2)
+		return (n);
+	x = n;
+	y = (x + 1) / 2;
+	while (y < x)
+	{
+		x = y;
+		y = (x + n / x) / 2;
+	}
+	return (x);
 }

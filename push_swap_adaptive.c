@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_adaptive.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/26 16:22:57 by alnoviko          #+#    #+#             */
+/*   Updated: 2026/05/26 17:02:09 by alnoviko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_len(t_list *pile)
@@ -47,7 +59,7 @@ void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 	int	medium;
 	int	complex;
 
-	if (compute_disorder(a) == 0)
+	if (compute_disorder(*a) == 0)
 	{
 		return ;
 	}

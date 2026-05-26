@@ -1,21 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_algorithe2.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/26 16:23:48 by alnoviko          #+#    #+#             */
+/*   Updated: 2026/05/26 17:11:25 by alnoviko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-
-int	my_sqrt(int n)
-{
-	int	x;
-	int	y;
-
-	if (n < 2)
-		return (n);
-	x = n;
-	y = (x + 1) / 2;
-	while (y < x)
-	{
-		x = y;
-		y = (x + n / x) / 2;
-	}
-	return (x);
-}
 
 static void	get_minmax(t_list *a, int *min, int *max)
 {

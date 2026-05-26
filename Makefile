@@ -5,7 +5,6 @@ CFLAGS   = -Wall -Wextra -Werror -g
 SRCS     = main.c \
            bench.c \
            error.c \
-           operations.c \
            push_swap_algorithe1.c \
            push_swap_algorithe2.c \
            push_swap_adaptive.c \
@@ -13,6 +12,11 @@ SRCS     = main.c \
 		   radix_utils.c \
 		   math.c \
 		   push_swap_utils.c \
+		   operations/operations.c \
+		   operations/push.c \
+		   operations/swap.c \
+		   operations/rotate.c \
+		   operations/reverse_rotate.c \
 
 OBJS     = $(SRCS:.c=.o)
 
