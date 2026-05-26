@@ -90,12 +90,10 @@ void	print_sorted_part(t_list *stack, int pos)
 {
 	while (stack)
 	{
-		printf("%i", *(int *)(stack->content) % ft_pow(2, pos + 1));
+		ft_printf("%i", *(int *)(stack->content) % ft_pow(2, pos + 1));
 		if (stack->next)
-		{
-			printf(" > ");
-		}
+			ft_printf(" > ");
 		stack = stack->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }

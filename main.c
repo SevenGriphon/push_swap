@@ -12,12 +12,13 @@
 
 #include "push_swap.h"
 
-static int	parse_flags(int argc, char **argv, int *strategy)
+static int	parse_flags(int argc, char **argv, int *strategy, int *bench)
 {
 	int	i;
 
 	i = 1;
 	*strategy = 0;
+	*bench = 0;
 	while (i < argc && argv[i][0] == '-' && argv[i][1] == '-')
 	{
 		if (ft_strncmp(argv[i], "--simple", 9) == 0)
@@ -26,38 +27,58 @@ static int	parse_flags(int argc, char **argv, int *strategy)
 			*strategy = 2;
 		else if (ft_strncmp(argv[i], "--complex", 10) == 0)
 			*strategy = 3;
+		else if (ft_strncmp(argv[i], "--adaptive", 11) == 0)
+			*strategy = 0;
+		if (ft_strncmp(argv[i], "--bench", 8) == 0)
+			*bench = 1;
 		i++;
 	}
 	return (i);
+}
+
+static void	run_sort(t_list **a, t_list **b, t_stats *s, int strategy)
+{
+	if (strategy == 1)
+		sort_simple(a, b, s);
+	else if (strategy == 2)
+		sort_meduim(a, b, s);
+	else if (strategy == 3)
+		radix(a, b, s);
+	else
+		sort_adaptive(a, b, s);
+}
+
+static void	sort_and_bench(t_list **a, int strategy, int bench)
+{
+	t_list	*b;
+	t_stats	stats;
+	double	disorder;
+
+	new_stats(&stats);
+	b = NULL;
+	disorder = compute_disorder(*a);
+	run_sort(a, &b, &stats, strategy);
+	if (bench)
+		print_bench(&stats, disorder, strategy);
+	ft_lstclear(a, free);
+	ft_lstclear(&b, free);
 }
 
 int	main(int argc, char **argv)
 {
 	int		i;
 	int		strategy;
+	int		bench;
 	t_list	*a;
-	t_list	*b;
-	t_stats	stats;
 
-	new_stats(&stats);
 	if (argc < 2)
 		return (0);
-	i = parse_flags(argc, argv, &strategy);
+	i = parse_flags(argc, argv, &strategy, &bench);
+	if (i >= argc)
+		return (0);
 	a = NULL;
-	b = NULL;
 	while (i < argc)
 		ft_lstadd_back(&a, create_node(argv[i++]));
-	if (strategy == 1)
-		sort_simple(&a, &b, &stats);
-	else if (strategy == 2)
-		sort_meduim(&a, &b, &stats);
-	else if (strategy == 3)
-		radix(&a, &b, &stats);
-	else
-		sort_adaptive(&a, &b, &stats);
-	print_stack(a);
-	printf("%i\n", stats.sa + stats.sb + stats.ss + stats.pa + stats.pb + stats.ra + stats.rb + stats.rr + stats.rra + stats.rrb + stats.rrr);
-	ft_lstclear(&a, free);
-	ft_lstclear(&b, free);
+	sort_and_bench(&a, strategy, bench);
 	return (0);
 }
