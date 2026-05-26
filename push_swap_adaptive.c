@@ -77,7 +77,6 @@ void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 		sort_low_disorder(a);
 	else if (disorder < 0.5)
 	{
-		chunck(a, b, stats);
 		sort_meduim(a, b, stats);
 	}
 	else
