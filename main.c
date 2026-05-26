@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 19:59:01 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:09:02 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,30 @@ static int	parse_flags(int argc, char **argv, int *strategy)
 	return (i);
 }
 
+void	new_stats(t_stats *stats)
+{
+	stats->sa = 0;
+	stats->sb = 0;
+	stats->ss = 0;
+	stats->pa = 0;
+	stats->pb = 0;
+	stats->ra = 0;
+	stats->rb = 0;
+	stats->rr = 0;
+	stats->rra = 0;
+	stats->rrb = 0;
+	stats->rrr = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
 	int		strategy;
 	t_list	*a;
 	t_list	*b;
+	t_stats	stats;
 
+	new_stats(&stats);
 	if (argc < 2)
 		return (0);
 	i = parse_flags(argc, argv, &strategy);
