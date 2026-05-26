@@ -6,30 +6,32 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:40:49 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 17:50:10 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:26:24 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_back(t_list **a, t_list **b, int reverse)
+void	push_back(t_list **a, t_list **b, int reverse, t_stats *stats)
 {
 	int	i;
 
 	i = 0;
 	while (*b != NULL)
 	{
-		push(b, a);
+		do_pa(a, b, stats);
+		// push(b, a);
 		i++;
 	}
 	if (reverse)
 	{
 		while (i-- != 0)
-			rotate(a);
+			do_ra(a, stats);
+			// rotate(a);
 	}
 }
 
-void	sort_by_digit(t_list **a, t_list **b, int pos)
+void	sort_by_digit(t_list **a, t_list **b, int pos, t_stats *stats)
 {
 	int	i;
 	int	size;
@@ -45,14 +47,16 @@ void	sort_by_digit(t_list **a, t_list **b, int pos)
 	{
 		digit = get_binary_digit(*(int *)((*a)->content), pos);
 		if ((!reverse && digit == 0) || (reverse && digit == 1))
-			push(a, b);
+			do_pb(a, b, stats);
+			// push(a, b);
 		else
-			rotate(a);
+			do_ra(a, stats);
+			// rotate(a);
 	}
-	push_back(a, b, reverse);
+	push_back(a, b, reverse, stats);
 }
 
-void	sort_by_sign(t_list **a, t_list **b)
+void	sort_by_sign(t_list **a, t_list **b, t_stats *stats)
 {
 	int	i;
 	int	size;
@@ -64,16 +68,25 @@ void	sort_by_sign(t_list **a, t_list **b)
 	{
 		number = *(int *)((*a)->content);
 		if (number < 0)
-			push(a, b);
+			do_pb(a, b, stats);
+			// push(a, b);
 		else
-			rotate(a);
+			do_ra(a, stats);
+			// rotate(a);
 		i++;
 	}
 	i = 0;
-	push_back(a, b, 0);
+	while (*b != NULL)
+    {
+		do_rrb(b, stats);
+        // reverse_rotate(b);
+		do_pa(a, b, stats);
+        // push(b, a);
+        i++;
+    }
 }
 
-void	radix(t_list **a, t_list **b)
+void	radix(t_list **a, t_list **b, t_stats *stats)
 {
 	int	max_size;
 	int	i;
@@ -82,8 +95,8 @@ void	radix(t_list **a, t_list **b)
 	i = 0;
 	while (i != max_size)
 	{
-		sort_by_digit(a, b, i);
+		sort_by_digit(a, b, i, stats);
 		i++;
 	}
-	sort_by_sign(a, b);
+	sort_by_sign(a, b, stats);
 }

@@ -68,7 +68,7 @@ static void	sort_low_disorder(t_list **a)
 	}
 }
 
-void	sort_adaptive(t_list **a, t_list **b)
+void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 {
 	double	disorder;
 
@@ -81,5 +81,5 @@ void	sort_adaptive(t_list **a, t_list **b)
 		sort_meduim(a, b);
 	}
 	else
-		radix(a, b);
+		radix(a, b, stats);
 }

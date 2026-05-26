@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:55:25 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/25 19:52:53 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:30:53 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	do_rrr(t_list **a, t_list **b, t_stats *s);
 
 int		ft_len(t_list *pile);
 double	compute_disorder(t_list *pile);
-void	sort_adaptive(t_list **a, t_list **b);
+void	sort_adaptive(t_list **a, t_list **b, t_stats *stats);
 
 int		find_max_pos(t_list *b);
 void	bring_max_to_top(t_list **b);
@@ -74,7 +74,7 @@ int		find_longest(t_list *stack);
 int		needs_sorting(t_list *a, int pos);
 int		needs_reverse_sort(t_list *a, int pos);
 void	print_sorted_part(t_list *stack, int pos);
-void	radix(t_list **a, t_list **b);
+void	radix(t_list **a, t_list **b, t_stats *stats);
 
 int		ft_log(unsigned int base, int n);
 int		ft_pow(int base, int exponent);

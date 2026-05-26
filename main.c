@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:09:02 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:30:07 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	main(int argc, char **argv)
 	else if (strategy == 2)
 		sort_meduim(&a, &b);
 	else if (strategy == 3)
-		radix(&a, &b);
+		radix(&a, &b, &stats);
 	else
-		sort_adaptive(&a, &b);
+		sort_adaptive(&a, &b, &stats);
 	return (0);
 }
