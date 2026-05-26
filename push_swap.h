@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:55:25 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:33:57 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:46:17 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ double	compute_disorder(t_list *pile);
 void	sort_adaptive(t_list **a, t_list **b, t_stats *stats);
 
 int		find_max_pos(t_list *b);
-void	bring_max_to_top(t_list **b);
-void	sort_simple(t_list **a, t_list **b);
+void	bring_max_to_top(t_list **b, t_stats *stats);
+void	sort_simple(t_list **a, t_list **b, t_stats *stats);
 
 int		my_sqrt(int n);
-void	chunck(t_list **a, t_list **b);
-void	sort_meduim(t_list **a, t_list **b);
+void	chunck(t_list **a, t_list **b, t_stats *stats);
+void	sort_meduim(t_list **a, t_list **b, t_stats *stats);
 
 int		get_binary_digit(int n, int pos);
 int		find_longest(t_list *stack);

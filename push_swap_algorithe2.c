@@ -34,7 +34,7 @@ static void	get_minmax(t_list *a, int *min, int *max)
 	}
 }
 
-static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last)
+static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last, t_stats *stats)
 {
 	int	size_a;
 	int	rotations;
@@ -47,13 +47,13 @@ static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last)
 		val = *(int *)(*a)->content;
 		if (val >= cmin && (is_last || val < cmax))
 		{
-			do_pb(a, b, NULL);
+			do_pb(a, b, stats);
 			rotations = 0;
 			size_a--;
 		}
 		else
 		{
-			do_ra(a, NULL);
+			do_ra(a, stats);
 			rotations++;
 		}
 	}
@@ -69,7 +69,7 @@ static int	get_num_chunks(t_list *a)
 	return ((total + chunk_size - 1) / chunk_size);
 }
 
-void	chunck(t_list **a, t_list **b)
+void	chunck(t_list **a, t_list **b, t_stats *stats)
 {
 	int	num_chunks;
 	int	min_val;
@@ -84,17 +84,17 @@ void	chunck(t_list **a, t_list **b)
 		push_chunk(a, b,
 			min_val + chunk * (max_val - min_val) / num_chunks,
 			min_val + (chunk + 1) * (max_val - min_val) / num_chunks,
-			chunk == num_chunks - 1);
+			chunk == num_chunks - 1, stats);
 		chunk++;
 	}
 }
 
-void	sort_meduim(t_list **a, t_list **b)
+void	sort_meduim(t_list **a, t_list **b, t_stats *stats)
 {
-	chunck(a, b);
+	chunck(a, b, stats);
 	while (*b)
 	{
-		bring_max_to_top(b);
-		do_pa(a, b, NULL);
+		bring_max_to_top(b, stats);
+		do_pa(a, b, stats);
 	}
 }

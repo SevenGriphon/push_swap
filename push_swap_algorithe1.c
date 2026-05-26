@@ -22,7 +22,7 @@ int	find_max_pos(t_list *b)
 	return (max_pos);
 }
 
-void	bring_max_to_top(t_list **b)
+void	bring_max_to_top(t_list **b, t_stats *stats)
 {
 	int	max;
 	int	len;
@@ -32,23 +32,23 @@ void	bring_max_to_top(t_list **b)
 	if (max <= len / 2)
 	{
 		while (max-- > 0)
-			do_rb(b, NULL);
+			do_rb(b, stats);
 	}
 	else
 	{
 		len = len - max;
 		while (len-- > 0)
-			do_rrb(b, NULL);
+			do_rrb(b, stats);
 	}
 }
 
-void	sort_simple(t_list **a, t_list **b)
+void	sort_simple(t_list **a, t_list **b, t_stats *stats)
 {
 	while (*a)
-		do_pb(a, b, NULL);
+		do_pb(a, b, stats);
 	while (*b)
 	{
-		bring_max_to_top(b);
-		do_pa(a, b, NULL);
+		bring_max_to_top(b, stats);
+		do_pa(a, b, stats);
 	}
 }

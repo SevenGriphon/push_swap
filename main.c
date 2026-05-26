@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:36:18 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:51:11 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ int	main(int argc, char **argv)
 	while (i < argc)
 		ft_lstadd_back(&a, create_node(argv[i++]));
 	if (strategy == 1)
-		sort_simple(&a, &b);
+		sort_simple(&a, &b, &stats);
 	else if (strategy == 2)
-		sort_meduim(&a, &b);
+		sort_meduim(&a, &b, &stats);
 	else if (strategy == 3)
 		radix(&a, &b, &stats);
 	else
 		sort_adaptive(&a, &b, &stats);
+	print_stack(a);
+	printf("%i\n", stats.sa + stats.sb + stats.ss + stats.pa + stats.pb + stats.ra + stats.rb + stats.rr + stats.rra + stats.rrb + stats.rrr);
 	ft_lstclear(&a, free);
 	ft_lstclear(&b, free);
 	return (0);
