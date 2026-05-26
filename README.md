@@ -19,10 +19,13 @@ Available operations:
 ### Compilation
 
 ```bash
-make
+make        # build push_swap
+make clean  # remove .o files
+make fclean # remove .o files and the binary
+make re     # fclean + rebuild
 ```
 
-This produces the `push_swap` binary. Requires a C compiler (`cc`) and the `libft` sources present in the `libft/` folder.
+This produces the `push_swap` binary. Requires a C compiler (`cc`), the `libft` sources in `libft/`, and the custom `printf` library in `printf/` (provides `ft_printf_fd` for stderr output).
 
 ### Execution
 
@@ -40,7 +43,7 @@ This produces the `push_swap` binary. Requires a C compiler (`cc`) and the `libf
 
 If no flag is given, `--adaptive` is the default.
 
-**`--bench` flag:** Prints statistics to stderr after sorting (disorder %, strategy used, total operations, per-operation counts).
+**`--bench` flag:** Prints statistics to stderr after sorting (disorder %, strategy used, total operations, per-operation counts). Implemented in `bench.c` via `print_bench()`.
 
 ### Usage examples
 
@@ -106,13 +109,6 @@ The disorder metric is computed before any moves: it counts the fraction of pair
 - Above 0.5, the data is too disordered for simple methods; radix sort's guaranteed O(n log n) bound is the safest choice.
 
 **Space complexity:** O(n) auxiliary space (stack `b`) for all strategies.
-
-## Contributions
-
-| Login | Contributions |
-|---|---|
-| ldoucet | Simple algorithm (O(n²)), chunk-based medium algorithm (O(n√n)), adaptive strategy and disorder metric, stack operations |
-| alnoviko | Radix sort (O(n log n)), main entry point, argument parsing, benchmark mode |
 
 ## Resources
 

@@ -76,9 +76,13 @@ int	main(int argc, char **argv)
 	i = parse_flags(argc, argv, &strategy, &bench);
 	if (i >= argc)
 		return (0);
+	if (!validate_args(argc, argv, i))
+		return (ft_error(NULL));
 	a = NULL;
 	while (i < argc)
 		ft_lstadd_back(&a, create_node(argv[i++]));
+	if (has_duplicates(a))
+		return (ft_error(&a));
 	sort_and_bench(&a, strategy, bench);
 	return (0);
 }
