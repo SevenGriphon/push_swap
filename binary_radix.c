@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:40:49 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 16:22:45 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:33:55 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	radix(t_list **a, t_list **b, t_stats *stats)
 	int	max_size;
 	int	i;
 
+	stats->strategy = 3;
 	max_size = find_longest(*a);
 	i = 0;
 	while (i != max_size)

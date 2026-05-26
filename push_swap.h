@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:55:25 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 16:33:08 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:36:24 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_stats
 	int	rra;
 	int	rrb;
 	int	rrr;
+	int strategy;
 }	t_stats;
 
 void	swap(t_list **stack);
@@ -66,7 +67,7 @@ void	new_stats(t_stats *stats);
 int		ft_len(t_list *pile);
 double	compute_disorder(t_list *pile);
 void	sort_adaptive(t_list **a, t_list **b, t_stats *stats);
-void	print_bench(t_stats *s, double disorder, int strategy);
+void	print_bench(t_stats *s, double disorder);
 
 int		validate_args(int argc, char **argv, int start);
 int		has_duplicates(t_list *a);

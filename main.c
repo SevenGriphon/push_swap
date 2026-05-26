@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 17:56:08 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 11:51:11 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:36:07 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	sort_and_bench(t_list **a, int strategy, int bench)
 	disorder = compute_disorder(*a);
 	run_sort(a, &b, &stats, strategy);
 	if (bench)
-		print_bench(&stats, disorder, strategy);
+		print_bench(&stats, disorder);
 	ft_lstclear(a, free);
 	ft_lstclear(&b, free);
 }

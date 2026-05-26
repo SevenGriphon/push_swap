@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 16:23:48 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 17:11:25 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:34:29 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	chunck(t_list **a, t_list **b, t_stats *stats)
 
 void	sort_meduim(t_list **a, t_list **b, t_stats *stats)
 {
+	stats->strategy = 2;
 	chunck(a, b, stats);
 	while (*b)
 	{
