@@ -40,7 +40,7 @@ double	compute_disorder(t_list *pile)
 	return (mistakes / total);
 }
 
-static void	sort_low_disorder(t_list **a)
+/* static void	sort_low_disorder(t_list **a)
 {
 	int	n;
 	int	i;
@@ -66,19 +66,23 @@ static void	sort_low_disorder(t_list **a)
 		while (i++ < n)
 			reverse_rotate(a);
 	}
-}
+} */
 
 void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 {
-	double	disorder;
+	int	n;
+	int	simple;
+	int	medium;
+	int	complex;
 
-	disorder = compute_disorder(*a);
-	if (disorder < 0.2)
-		sort_low_disorder(a);
-	else if (disorder < 0.5)
-	{
+	n = ft_lstsize(*a);
+	simple = (n / 2) * n + n;
+	medium = 2 * n * my_sqrt(n);
+	complex = (find_longest(*a) + 1) * 2 * n;
+	if (simple <= medium && simple <= complex)
+		sort_simple(a, b, stats);
+	else if (medium <= complex)
 		sort_meduim(a, b, stats);
-	}
 	else
 		radix(a, b, stats);
 }
