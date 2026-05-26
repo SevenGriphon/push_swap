@@ -40,34 +40,6 @@ double	compute_disorder(t_list *pile)
 	return (mistakes / total);
 }
 
-/* static void	sort_low_disorder(t_list **a)
-{
-	int	n;
-	int	i;
-	int	sorted;
-
-	n = ft_len(*a) - 1;
-	sorted = 0;
-	while (!sorted)
-	{
-		sorted = 1;
-		i = 0;
-		while (i < n)
-		{
-			if (*(int *)(*a)->content > *(int *)(*a)->next->content)
-			{
-				swap(a);
-				sorted = 0;
-			}
-			rotate(a);
-			i++;
-		}
-		i = 0;
-		while (i++ < n)
-			reverse_rotate(a);
-	}
-} */
-
 void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 {
 	int	n;
@@ -75,6 +47,10 @@ void	sort_adaptive(t_list **a, t_list **b, t_stats *stats)
 	int	medium;
 	int	complex;
 
+	if (compute_disorder(a) == 0)
+	{
+		return ;
+	}
 	n = ft_lstsize(*a);
 	simple = (n / 2) * n + n;
 	medium = 2 * n * my_sqrt(n);
