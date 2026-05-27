@@ -37,7 +37,7 @@ typedef struct s_stats
 	int	rra;
 	int	rrb;
 	int	rrr;
-	int strategy;
+	int	strategy;
 }	t_stats;
 
 void	swap(t_list **stack);

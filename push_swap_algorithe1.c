@@ -57,7 +57,6 @@ void	bring_max_to_top(t_list **b, t_stats *stats)
 void	sort_simple(t_list **a, t_list **b, t_stats *stats)
 {
 	stats->strategy = 2;
-
 	while (*a)
 		do_pb(a, b, stats);
 	while (*b)

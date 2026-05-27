@@ -31,4 +31,9 @@ char	*ft_bitoa(unsigned long n, char *base);
 char	*ft_itoa(int n);
 
 int		ft_printf_fd(int fd, const char *format, ...);
+int		pft_putchar(int fd, char c);
+int		pft_strstring(int fd, char *s);
+int		pft_putnbr(int fd, int n);
+int		pft_putunsigned(int fd, unsigned int n);
+int		pft_puthex(int fd, unsigned long nb, char *base);
 #endif

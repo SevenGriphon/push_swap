@@ -1,92 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_fd.c                                     :+:      :+:    :+:  */
+/*                                                    +:+ +:+         +:+    */
+/*   By: ldoucet <ldoucet@learner.42.tech>          +#+  +:+       +#+       */
+/*                                                +#+#+#+#+#+   +#+          */
+/*   Created: 2026/05/09 10:38:00 by ldoucet           #+#    #+#            */
+/*   Updated: 2026/05/09 10:38:00 by ldoucet          ###   ########.fr      */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-
-static int	ft_putchar_fd(int fd, char c)
-{
-	write(fd, &c, 1);
-	return (1);
-}
-
-static int	ft_strstring_fd(int fd, char *s)
-{
-	int	i;
-
-	if (!s)
-		return (ft_strstring_fd(fd, "(null)"));
-	i = 0;
-	while (s[i] != '\0')
-	{
-		ft_putchar_fd(fd, s[i]);
-		i++;
-	}
-	return (i);
-}
-
-static int	ft_putnbr_fd(int fd, int n)
-{
-	int		count;
-	char	c;
-
-	count = 0;
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return (11);
-	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		count++;
-		n = -n;
-	}
-	if (n >= 10)
-		count += ft_putnbr_fd(fd, n / 10);
-	c = (n % 10) + '0';
-	write(fd, &c, 1);
-	count++;
-	return (count);
-}
-
-static int	ft_putunsigned_fd(int fd, unsigned int n)
-{
-	int		count;
-	char	c;
-
-	count = 0;
-	if (n >= 10)
-		count += ft_putunsigned_fd(fd, n / 10);
-	c = (n % 10) + '0';
-	write(fd, &c, 1);
-	count++;
-	return (count);
-}
-
-static int	ft_puthex_fd(int fd, unsigned long nb, char *base)
-{
-	int	i;
-
-	i = 0;
-	if (nb < 16)
-		i += ft_putchar_fd(fd, base[nb]);
-	else
-	{
-		i += ft_puthex_fd(fd, nb / 16, base);
-		i += ft_puthex_fd(fd, nb % 16, base);
-	}
-	return (i);
-}
 
 static int	ft_putptr_fd(int fd, void *ptr)
 {
 	if (!ptr)
 		return (write(fd, "(nil)", 5));
-	ft_putchar_fd(fd, '0');
-	ft_putchar_fd(fd, 'x');
-	return (ft_puthex_fd(fd, (unsigned long)ptr, "0123456789abcdef") + 2);
+	pft_putchar(fd, '0');
+	pft_putchar(fd, 'x');
+	return (pft_puthex(fd, (unsigned long)ptr, "0123456789abcdef") + 2);
+}
+
+static int	ft_handle_num_fd(int fd, char spec, va_list *args)
+{
+	if (spec == 'd' || spec == 'i')
+		return (pft_putnbr(fd, va_arg(*args, int)));
+	if (spec == 'u')
+		return (pft_putunsigned(fd, va_arg(*args, unsigned int)));
+	if (spec == 'x')
+		return (pft_puthex(fd, va_arg(*args, unsigned int),
+				"0123456789abcdef"));
+	if (spec == 'X')
+		return (pft_puthex(fd, va_arg(*args, unsigned int),
+				"0123456789ABCDEF"));
+	return (-1);
 }
 
 static int	ft_handle_format_fd(int fd, char spec, va_list *args)
 {
 	char	c;
+	int		n;
 
 	if (spec == 'c')
 	{
@@ -95,23 +48,16 @@ static int	ft_handle_format_fd(int fd, char spec, va_list *args)
 		return (1);
 	}
 	else if (spec == 's')
-		return (ft_strstring_fd(fd, va_arg(*args, char *)));
-	else if (spec == 'd' || spec == 'i')
-		return (ft_putnbr_fd(fd, va_arg(*args, int)));
-	else if (spec == 'u')
-		return (ft_putunsigned_fd(fd, va_arg(*args, unsigned int)));
-	else if (spec == 'x')
-		return (ft_puthex_fd(fd, va_arg(*args, unsigned int),
-				"0123456789abcdef"));
-	else if (spec == 'X')
-		return (ft_puthex_fd(fd, va_arg(*args, unsigned int),
-				"0123456789ABCDEF"));
+		return (pft_strstring(fd, va_arg(*args, char *)));
 	else if (spec == 'p')
 		return (ft_putptr_fd(fd, va_arg(*args, void *)));
 	else if (spec == '%')
 		return (write(fd, "%", 1));
-	ft_putchar_fd(fd, '%');
-	return (ft_putchar_fd(fd, spec) + 1);
+	n = ft_handle_num_fd(fd, spec, args);
+	if (n != -1)
+		return (n);
+	pft_putchar(fd, '%');
+	return (pft_putchar(fd, spec) + 1);
 }
 
 int	ft_printf_fd(int fd, const char *format, ...)
@@ -131,7 +77,7 @@ int	ft_printf_fd(int fd, const char *format, ...)
 			i++;
 		}
 		else
-			count += ft_putchar_fd(fd, format[i]);
+			count += pft_putchar(fd, format[i]);
 		i++;
 	}
 	va_end(args);
