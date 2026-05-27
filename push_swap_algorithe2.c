@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 16:23:48 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 17:34:29 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:27:43 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	get_minmax(t_list *a, int *min, int *max)
 	}
 }
 
-static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last, t_stats *stats)
+// data = {int cmin, int cmax, int is_last}
+static void	push_chunk(t_list **a, t_list **b, int data[3], t_stats *stats)
 {
 	int	size_a;
 	int	rotations;
@@ -40,7 +41,7 @@ static void	push_chunk(t_list **a, t_list **b, int cmin, int cmax, int is_last, 
 	while (*a && rotations < size_a)
 	{
 		val = *(int *)(*a)->content;
-		if (val >= cmin && (is_last || val < cmax))
+		if (val >= data[0] && (data[2] || val < data[1]))
 		{
 			do_pb(a, b, stats);
 			rotations = 0;
@@ -70,16 +71,17 @@ void	chunck(t_list **a, t_list **b, t_stats *stats)
 	int	min_val;
 	int	max_val;
 	int	chunk;
+	int	data[3];
 
 	get_minmax(*a, &min_val, &max_val);
 	num_chunks = get_num_chunks(*a);
 	chunk = 0;
 	while (chunk < num_chunks)
 	{
-		push_chunk(a, b,
-			min_val + chunk * (max_val - min_val) / num_chunks,
-			min_val + (chunk + 1) * (max_val - min_val) / num_chunks,
-			chunk == num_chunks - 1, stats);
+		data[0] = min_val + chunk * (max_val - min_val) / num_chunks;
+		data[1] = min_val + (chunk + 1) * (max_val - min_val) / num_chunks;
+		data[2] = chunk == num_chunks - 1;
+		push_chunk(a, b, data, stats);
 		chunk++;
 	}
 }

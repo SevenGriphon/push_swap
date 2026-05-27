@@ -6,7 +6,7 @@
 
 Push_swap is a sorting algorithm project using two stacks (`a` and `b`) and a limited set of operations. The goal is to sort a list of integers placed in stack `a` in ascending order, using the minimum number of operations possible.
 
-The program implements four distinct sorting strategies, automatically selected based on the disorder level of the input, or forced via command-line flags.
+The program implements four distinct sorting strategies, automatically selected based on the predicted number of operations required by each algorithm, or forced via command-line flags.
 
 Available operations:
 - `sa` / `sb` / `ss` — swap top two elements
@@ -22,6 +22,7 @@ Available operations:
 make        # build push_swap
 make clean  # remove .o files
 make fclean # remove .o files and the binary
+make aclean # build push_swap and remove .o files
 make re     # fclean + rebuild
 ```
 
@@ -89,24 +90,28 @@ The value range [min, max] is divided into √n equal chunks. Elements belonging
 
 ### 3. Complex — O(n log n) : Binary LSD Radix sort
 
-Values are first normalized to ranks (0 to n−1) to handle negative numbers. Then, for each bit position from LSB to MSB, elements with a `0` bit are pushed to `b` and rotated, while elements with a `1` bit stay in `a` (rotated). After each pass, all elements are merged back. log₂(n) passes × O(n) operations per pass → O(n log n).
+Values are first normalized to ranks (0 to n−1) to handle negative numbers. Then, for each bit position from LSB to MSB, elements with a `0` bit are pushed to `b` and rotated, while elements with a `1` bit stay in `a` (rotated) (or the other way around if it would cost less operations). After each pass, all elements are merged back. log₂(n) passes × O(n) operations per pass → O(n log n).
 
-**Complexity argument:** The number of bit positions needed is ⌈log₂(n)⌉. Each pass costs exactly n push/rotate operations → O(n log n) total.
+**Complexity argument:** The number of bit positions needed is ⌈log₂(k)⌉ where k is the largest number in the list. If we assume that k = n (for example the numbers are shuffled [0, n]) that simplifies to ⌈log₂(n)⌉. Each pass is O(n) push/rotate operations → O(n log n) total.
 
-### 4. Adaptive — disorder-driven selection
+### 4. Disorder metric
 
 The disorder metric is computed before any moves: it counts the fraction of pairs (i, j) where i < j but `a[i] > a[j]`, giving a value in [0, 1].
 
-| Disorder | Regime | Method used | Target complexity |
-|---|---|---|---|
-| < 0.2 | Low | Bubble sort on `a` (swap + rotate) | O(n) |
-| 0.2 – 0.5 | Medium | Chunk-based sort | O(n√n) |
-| ≥ 0.5 | High | Binary LSD Radix sort | O(n log n) |
+### 4. Adaptive — disorder-driven selection
+
+Adaptive sort tries to predict the cost of each algorithm using it's complexity and chooses the algorithm with the smallest predicted cost.
+
+| Method | Aproximised complexity | O complexity |
+|---|---|---|
+| Bubble sort on `a` (swap + rotate) | (n/2)\*n+n | O(n) |
+| Chunk-based sort | 2n\*√n | O(n√n) |
+| Chunk-based sort | (log k + 1)\*2n | O(n log k) |
+
+The algorithm also verifies that the disorder of the list isn't 0.
 
 **Threshold rationale:**
-- Below 0.2, the stack is nearly sorted — a single pass of adjacent swaps corrects the few inversions in linear time.
-- Between 0.2 and 0.5, partial disorder benefits from chunk grouping, which avoids the overhead of a full radix sort.
-- Above 0.5, the data is too disordered for simple methods; radix sort's guaranteed O(n log n) bound is the safest choice.
+The only threshhold used is 0, which determines wether the list is already sorted, to avoid unnecessary operations.
 
 **Space complexity:** O(n) auxiliary space (stack `b`) for all strategies.
 
@@ -116,6 +121,8 @@ The disorder metric is computed before any moves: it counts the fraction of pair
 - [Visualgo — Sorting algorithms visualized](https://visualgo.net/en/sorting)
 - [Wikipedia — Radix sort](https://en.wikipedia.org/wiki/Radix_sort)
 - [Wikipedia — Big O notation](https://en.wikipedia.org/wiki/Big_O_notation)
+- [Wikipedia — Bucket sort](https://en.wikipedia.org/wiki/Bucket_sort)
+- [Wikipedia — Selection sort](https://en.wikipedia.org/wiki/Selection_sort)
 - [The Art of Computer Programming — Donald Knuth](https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming)
 
 ### AI usage
@@ -124,4 +131,19 @@ AI (Claude) was used during this project for:
 - **Debugging assistance**: identifying logic errors
 - **README drafting**: structuring and writing this documentation.
 
-
+### Contributions
+**alnoviko**:
+    - libft  
+    - genral operations  
+    - radix  
+    - main  
+    - Makefile  
+    - header file  
+**ldoucet**:
+    - pritnf_fd  
+    - insertion sort
+    - bucket sort
+    - error handling  
+    - bench flag  
+    - adaptive algorithm  
+    - basic operations  
