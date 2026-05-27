@@ -6,7 +6,7 @@
 /*   By: alnoviko <alnoviko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 16:23:26 by alnoviko          #+#    #+#             */
-/*   Updated: 2026/05/26 17:34:20 by alnoviko         ###   ########.fr       */
+/*   Updated: 2026/05/27 16:19:40 by alnoviko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	bring_max_to_top(t_list **b, t_stats *stats)
 
 void	sort_simple(t_list **a, t_list **b, t_stats *stats)
 {
-	stats->strategy = 2;
+	stats->strategy = 1;
 	while (*a)
 		do_pb(a, b, stats);
 	while (*b)
